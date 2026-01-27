@@ -1,0 +1,38 @@
+{
+  "name": "@openreachtech/todo-fulfill-here",
+  "version": "0.0.0",
+  "description": "TODO: fulfill here (by npm-boilerplate@0.0.1)",
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "lib/",
+    "types/"
+  ],
+  "scripts": {
+    "l": "npm run lint",
+    "lint": "eslint .",
+    "test": "export NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\"; export NODE_ENV=development; jest --maxWorkers=5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openreachtech/todo-fulfill-here.git"
+  },
+  "author": "Open Reach Tech Inc.",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/openreachtech/todo-fulfill-here/issues"
+  },
+  "homepage": "https://github.com/openreachtech/todo-fulfill-here#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@openreachtech/eslint-config": "^4.3.0",
+    "@openreachtech/jest-constructor-spy": "^1.1.0",
+    "@openreachtech/mentsu-rootpath": "^1.1.0",
+    "@openreachtech/renchan-env": "^1.0.2",
+    "@openreachtech/renchan-test-tools": "^1.0.0",
+    "@types/jest": "^30.0.0",
+    "eslint": "^9.39.2",
+    "jest": "^30.2.0"
+  }
+}
