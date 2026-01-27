@@ -1,7 +1,7 @@
 {
   "name": "@openreachtech/mentsu-bound-ctor-registry",
   "version": "0.0.0",
-  "description": "TODO: fulfill here (by npm-boilerplate@0.0.1)",
+  "description": "BoundCtorRegistry class",
   "type": "module",
   "main": "index.js",
   "files": [
