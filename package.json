@@ -1,7 +1,7 @@
 {
-  "name": "@openreachtech/todo-fulfill-here",
+  "name": "@openreachtech/mentsu-bound-ctor-registry",
   "version": "0.0.0",
-  "description": "TODO: fulfill here (by npm-boilerplate@0.0.1)",
+  "description": "BoundCtorRegistry class",
   "type": "module",
   "main": "index.js",
   "files": [
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openreachtech/todo-fulfill-here.git"
+    "url": "git+https://github.com/openreachtech/mentsu-bound-ctor-registry.git"
   },
   "author": "Open Reach Tech Inc.",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/openreachtech/todo-fulfill-here/issues"
+    "url": "https://github.com/openreachtech/mentsu-bound-ctor-registry/issues"
   },
-  "homepage": "https://github.com/openreachtech/todo-fulfill-here#readme",
+  "homepage": "https://github.com/openreachtech/mentsu-bound-ctor-registry#readme",
   "dependencies": {
   },
   "devDependencies": {
