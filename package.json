@@ -1,12 +1,11 @@
 {
   "name": "@openreachtech/mentsu-bound-ctor-registry",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "BoundCtorRegistry class",
   "type": "module",
   "main": "index.js",
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "scripts": {
     "l": "npm run lint",
