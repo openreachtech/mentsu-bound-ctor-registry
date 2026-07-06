@@ -68,8 +68,9 @@ It is an ES module (`"type": "module"`); import it with ESM `import` syntax.
 
 ## Usage
 
-See [readme/usage.md](./readme/usage.md) for usage examples, including the `use` inflator
-method and a real-world inflator method example.
+See [readme/usage.md](https://github.com/openreachtech/mentsu-bound-ctor-registry/blob/main/readme/usage.md)
+for usage examples, including the `use` inflator method and a real-world inflator method
+example.
 
 ## API
 

@@ -67,7 +67,8 @@ ES モジュール（`"type": "module"`）です。ESM の `import` 構文でイ
 ## 使い方
 
 使い方の例（`use` inflator method、および inflator method の実例を含む）は
-[readme/usage.ja.md](./readme/usage.ja.md) を参照してください。
+[readme/usage.ja.md](https://github.com/openreachtech/mentsu-bound-ctor-registry/blob/main/readme/usage.ja.md)
+を参照してください。
 
 ## API
 
