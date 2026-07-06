@@ -144,7 +144,9 @@ npm test
 
 ## ライセンス
 
-UNLICENSED
+本プロジェクトは MIT ライセンスで公開されています。
+
+詳細は [LICENSE ファイル](./LICENSE) を参照してください。
 
 ## 開発者
 
