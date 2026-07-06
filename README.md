@@ -152,4 +152,4 @@ UNLICENSED
 
 ## Copyright
 
-© 2025 Open Reach Tech Inc.
+© 2026 Open Reach Tech Inc.
