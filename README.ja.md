@@ -17,8 +17,10 @@
 - [使い方](#使い方)
 - [API](#api)
 - [メモ化の仕組み](#メモ化の仕組み)
-- [開発](#開発)
+- [コントリビューション](#コントリビューション)
 - [ライセンス](#ライセンス)
+- [開発者](#開発者)
+- [著作権](#著作権)
 
 ## コンセプト
 
@@ -38,7 +40,23 @@
 
 ## インストール
 
-本パッケージは `@openreachtech` スコープで公開されています。
+Node.js 20.x が必要です（CI がビルド対象とするバージョン）。
+
+本パッケージは GitHub Packages（`@openreachtech` スコープ）で公開されています。インストールする前に、以下の二項が必要です。
+
+1. `.npmrc` にレジストリを追記する:
+
+   ```
+   @openreachtech:registry=https://npm.pkg.github.com
+   ```
+
+2. `npm login` で認証する:
+
+   ```sh
+   npm login --registry https://npm.pkg.github.com
+   ```
+
+設定後、インストールします:
 
 ```sh
 npm install @openreachtech/mentsu-bound-ctor-registry
@@ -48,66 +66,37 @@ ES モジュール（`"type": "module"`）です。ESM の `import` 構文でイ
 
 ## 使い方
 
-```js
-import { BoundCtorRegistry } from '@openreachtech/mentsu-bound-ctor-registry'
-
-// 派生元となるベースクラス。
-class Document {}
-
-// ベースコンストラクターに紐づくレジストリを生成する。
-const registry = BoundCtorRegistry.create({
-  BaseCtor: Document,
-})
-
-// bindings は派生を識別する WeakKey 値（オブジェクト・クラス）。
-const TenantKey = class {}
-const RoleKey = class {}
-
-// deriver はベース Ctor を受け取り、バインド（派生）クラスを返す。
-const deriver = ({ Ctor }) => class extends Ctor {}
-
-// 初回呼び出しで派生し、キャッシュする。
-const BoundA = registry.ensureBoundCtor({
-  bindings: [TenantKey, RoleKey],
-  deriver,
-})
-
-// 同じ bindings・同じベースコンストラクター → 同一のクラス参照。
-const BoundB = registry.ensureBoundCtor({
-  bindings: [TenantKey, RoleKey],
-  deriver,
-})
-
-console.log(BoundA === BoundB) // true
-
-// bindings が異なれば → 別の派生クラス。
-const BoundC = registry.ensureBoundCtor({
-  bindings: [TenantKey],
-  deriver,
-})
-
-console.log(BoundA === BoundC) // false
-
-// 派生クラスはベースクラスを継承し、クラス名も引き継ぐ。
-console.log(BoundA.prototype instanceof Document) // true
-console.log(BoundA.name) // 'Document'
-```
+使い方の例（`use` inflator method、および inflator method の実例を含む）は
+[readme/usage.ja.md](./readme/usage.ja.md) を参照してください。
 
 ## API
 
-### `BoundCtorRegistry.create({ BaseCtor })`
+クラスメンバーは以下の表記に従って記述します。
+
+| notation | members |
+| :-- | :-- |
+| `#instanceProperty` | instance property |
+| `#instanceMethod()` | instance method |
+| `#get:instanceGetter` | instance getter |
+| `#set:instanceSetter` | instance setter |
+| `.staticProperty` | static property |
+| `.staticMethod()` | static method |
+| `.get:staticGetter` | static getter |
+| `.set:staticSetter` | static setter |
+
+### `.create({ BaseCtor })`
 
 静的ファクトリーメソッド。指定したベースコンストラクター用のレジストリインスタンスを新規生成します。
 
 | パラメーター | 型         | 説明                             |
 | ------------ | ---------- | -------------------------------- |
-| `BaseCtor`   | `Function` | 派生元となるベースコンストラクター。 |
+| `BaseCtor`   | `new (...args: Array<*>) => *` | 派生元となるベースコンストラクター。 |
 
 `BoundCtorRegistry`（またはサブクラス）のインスタンスを返します。
 
 コンストラクターを直接使うこともできます: `new BoundCtorRegistry({ BaseCtor })`
 
-### `registry.ensureBoundCtor({ bindings, deriver })`
+### `#ensureBoundCtor({ bindings, deriver })`
 
 主となるエントリーポイント。指定した `bindings` に対応するバインド済みコンストラクターを返します。
 初回呼び出し時に派生・キャッシュし、以降はキャッシュされた参照を返します。
@@ -115,65 +104,51 @@ console.log(BoundA.name) // 'Document'
 | パラメーター | 型                    | 説明                                                                                     |
 | ------------ | --------------------- | ---------------------------------------------------------------------------------------- |
 | `bindings`   | `Array<WeakKey>`      | 派生を識別する順序付きキー。各要素は `WeakMap` のキーとして使用可能である必要があります。 |
-| `deriver`    | `({ Ctor }) => Class` | キャッシュミス時のみ呼ばれます。`{ Ctor: BaseCtor }` を受け取り、派生クラスを返します。   |
+| `deriver`    | `({ Ctor }) => new (...args: Array<*>) => *` | キャッシュミス時のみ呼ばれます。`{ Ctor: BaseCtor }` を受け取り、派生クラスを返します。   |
 
 バインド済みコンストラクター（`BaseCtor` のサブクラス）を返します。
 
-### `registry.declareBoundCtor({ deriver })`
-
-キャッシュに触れずに、新しいバインド済みコンストラクターを宣言します。
-`deriver({ Ctor: BaseCtor })` を呼び出し、その結果を `BaseCtor.name` と同じ `name` を持つ
-サブクラスでラップします。通常は `ensureBoundCtor()` を使用してください。本メソッドは
-それが内部的に利用する低レベルの構成要素です。
-
-### `registry.Ctor`
-
-レジストリ自身のコンストラクター（`this.constructor`）を返すゲッター。
-インスタンスから静的メンバーへアクセスしつつ、サブクラスにも対応するために内部的に使用されます。
-
-### 静的メンバー
-
-- `BoundCtorRegistry.BoundCtorPool` — 内部の複合キーから、派生クラスのプール
-  `WeakMap<BaseCtor, BoundCtor>` へのマッピングを持つ `WeakMap`。
-- `BoundCtorRegistry.compositeKeyPool` — `bindings` 配列を単一で安定した `WeakMap` 参照へ
-  解決するために使われる、入れ子構造の `WeakMap` ツリー。
-- `BoundCtorRegistry.ensureBindingWeakMapKey({ bindings })` — `bindings` を安定した複合キー
-  （`WeakMap`）へ解決します。同じ順序のバインディング列は、常に同じ参照を返します。
-- `BoundCtorRegistry.ensureCtorPool({ weakMapKey })` — 複合キーに紐づく
-  `WeakMap<BaseCtor, BoundCtor>` プールを返します（無ければ生成します）。
-
 ## メモ化の仕組み
 
-ルックアップは 2 段階で行われ、いずれも `WeakMap` に支えられています。
+バインド済みクラスは、`bindings` と `BaseCtor` の組み合わせに対してキャッシュされます。
 
-1. **`bindings` → 複合キー。**
-   `ensureBindingWeakMapKey()` は、入れ子の `compositeKeyPool` に沿って `bindings` 配列を
-   畳み込み、バインディング 1 つにつき `WeakMap` を 1 階層たどります。返される末端の
-   `WeakMap` は安定しており、同じ順序のバインディング列は常にまったく同じ参照へ解決されます。
+1. 順序付きの `bindings` 配列は、単一で安定したキャッシュキーへ解決されます。同じ順序の
+   バインディング列は、常に同じキーへ解決されます。
+2. そのキーと `BaseCtor` の組み合わせによって、キャッシュ済みのバインド済みクラスが特定
+   されます。初回のリクエストでは `deriver` が呼び出されて結果が保存され、以降は同じ入力の
+   リクエストに対して保存済みのクラスが返されます。
 
-2. **複合キー + `BaseCtor` → バインド済みクラス。**
-   この複合キーで `BoundCtorPool` を引き、`WeakMap<BaseCtor, BoundCtor>` を得ます。
-   プールに `BaseCtor` のエントリーが既にあればそのキャッシュ済みクラスを返し、
-   無ければ `deriver` を呼び出して結果を保存し、それを返します。
-
-すべての階層が `WeakMap` であるため、キャッシュされた派生クラスがキーとなるオブジェクトを
-生存させ続けることはありません。バインディングやベースコンストラクターがどこからも参照されなく
-なれば、対応するキャッシュエントリーはガベージコレクションの対象になります。
+キャッシュは `WeakMap` で構築されているため、キャッシュされた派生クラスがキーとなる
+オブジェクトを生存させ続けることはありません。バインディングやベースコンストラクターが
+どこからも参照されなくなれば、対応するキャッシュエントリーはガベージコレクションの対象に
+なります。
 
 > **注意:** `bindings` の各要素および `BaseCtor` は、`WeakMap` の有効なキー
 > （オブジェクト・関数・クラス）である必要があります。プリミティブ値はバインディングとして
 > 使用できません。
 
-## 開発
+## コントリビューション
+
+バグ報告・機能要望・コード貢献を歓迎します。
+
+GitHub Issues からお気軽にご連絡ください。
 
 ```sh
-# テストの実行（Jest, ESM モード）。
+git clone https://github.com/openreachtech/mentsu-bound-ctor-registry.git
+cd mentsu-bound-ctor-registry
+npm install
+npm run lint
 npm test
-
-# コードのリント。
-npm run lint   # エイリアス: npm run l
 ```
 
 ## ライセンス
 
-UNLICENSED. Copyright © Open Reach Tech Inc. All rights reserved.
+UNLICENSED
+
+## 開発者
+
+[Open Reach Tech Inc.](https://openreach.tech)
+
+## 著作権
+
+© 2025 Open Reach Tech Inc.
