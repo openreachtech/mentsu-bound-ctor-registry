@@ -1,6 +1,6 @@
 {
   "name": "@openreachtech/mentsu-bound-ctor-registry",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "BoundCtorRegistry class",
   "type": "module",
   "main": "index.js",
@@ -17,7 +17,7 @@
     "url": "git+https://github.com/openreachtech/mentsu-bound-ctor-registry.git"
   },
   "author": "Open Reach Tech Inc.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/openreachtech/mentsu-bound-ctor-registry/issues"
   },
@@ -25,13 +25,13 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@openreachtech/eslint-config": "^4.3.0",
-    "@openreachtech/jest-constructor-spy": "^1.1.0",
-    "@openreachtech/mentsu-rootpath": "^1.1.0",
-    "@openreachtech/renchan-env": "^1.0.2",
+    "@openreachtech/eslint-config": "^4.4.0",
+    "@openreachtech/jest-constructor-spy": "^1.1.1",
+    "@openreachtech/mentsu-rootpath": "^1.1.1",
+    "@openreachtech/renchan-env": "^1.0.3",
     "@openreachtech/renchan-test-tools": "^1.0.0",
     "@types/jest": "^30.0.0",
     "eslint": "^9.39.2",
-    "jest": "^30.2.0"
+    "jest": "^30.4.2"
   }
 }
