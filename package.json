@@ -25,7 +25,7 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@openreachtech/eslint-config": "^4.3.0",
+    "@openreachtech/eslint-config": "^4.4.0",
     "@openreachtech/jest-constructor-spy": "^1.1.0",
     "@openreachtech/mentsu-rootpath": "^1.1.0",
     "@openreachtech/renchan-env": "^1.0.2",
