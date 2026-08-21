@@ -1,6 +1,6 @@
 {
   "name": "@openreachtech/mentsu-bound-ctor-registry",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "BoundCtorRegistry class",
   "type": "module",
   "main": "index.js",
