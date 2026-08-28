@@ -1,6 +1,6 @@
 {
   "name": "@openreachtech/mentsu-bound-ctor-registry",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "BoundCtorRegistry class",
   "type": "module",
   "main": "index.js",
@@ -17,7 +17,7 @@
     "url": "git+https://github.com/openreachtech/mentsu-bound-ctor-registry.git"
   },
   "author": "Open Reach Tech Inc.",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/openreachtech/mentsu-bound-ctor-registry/issues"
   },
