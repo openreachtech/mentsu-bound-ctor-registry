@@ -42,21 +42,7 @@
 
 Node.js 20.x が必要です（CI がビルド対象とするバージョン）。
 
-本パッケージは GitHub Packages（`@openreachtech` スコープ）で公開されています。インストールする前に、以下の二項が必要です。
-
-1. `.npmrc` にレジストリを追記する:
-
-   ```
-   @openreachtech:registry=https://npm.pkg.github.com
-   ```
-
-2. `npm login` で認証する:
-
-   ```sh
-   npm login --registry https://npm.pkg.github.com
-   ```
-
-設定後、インストールします:
+npm でインストールします:
 
 ```sh
 npm install @openreachtech/mentsu-bound-ctor-registry
