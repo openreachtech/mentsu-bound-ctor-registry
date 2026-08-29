@@ -1,6 +1,6 @@
 {
   "name": "@openreachtech/mentsu-bound-ctor-registry",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "BoundCtorRegistry class",
   "type": "module",
   "main": "index.js",
@@ -25,11 +25,11 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@openreachtech/eslint-config": "^4.4.0",
+    "@openreachtech/eslint-config": "^4.5.0",
     "@openreachtech/jest-constructor-spy": "^1.1.1",
     "@openreachtech/mentsu-rootpath": "^1.1.1",
     "@openreachtech/renchan-env": "^1.0.3",
-    "@openreachtech/renchan-test-tools": "^1.0.0",
+    "@openreachtech/jest-deep-containing": "^1.0.2",
     "@types/jest": "^30.0.0",
     "eslint": "^9.39.2",
     "jest": "^30.4.2"
