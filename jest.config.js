@@ -1,6 +1,6 @@
 export default {
   setupFilesAfterEnv: [
-    '@openreachtech/renchan-test-tools/lib/environment/setupAfterEnv.js',
+    '@openreachtech/jest-deep-containing/lib/setup-expect-deepContaining.js',
     '<rootDir>/tests/setup-after-env.js',
   ],
   moduleNameMapper: {
