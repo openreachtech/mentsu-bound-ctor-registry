@@ -32,6 +32,6 @@
     "@openreachtech/jest-deep-containing": "^1.0.2",
     "@types/jest": "^30.0.0",
     "eslint": "^9.39.5",
-    "jest": "^30.4.2"
+    "jest": "^30.5.1"
   }
 }
